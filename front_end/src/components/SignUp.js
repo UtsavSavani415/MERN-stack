@@ -1,13 +1,35 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
-  const collectedData = () => {
+  const collectedData = async () => {
     console.log(name, email, password);
+
+    let result = await fetch("http://localhost:5000/register", {
+      method: "post",
+      body: JSON.stringify({ name, email, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (result) {
+      navigate("/");
+
+      console.log("====================================");
+      console.log("result true");
+      console.log("====================================");
+    }
+
+    // result = await result.json();
+    console.log("result", result);
   };
+
   return (
     <>
       <div className="align-content-center">
@@ -51,7 +73,11 @@ function SignUp(props) {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary ms-5" onClick={collectedData}>
+          <button
+            type="submit"
+            className="btn btn-primary ms-5"
+            onClick={collectedData}
+          >
             Submit
           </button>
         </form>
