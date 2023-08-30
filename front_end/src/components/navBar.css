@@ -1,0 +1,17 @@
+ul li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 0px 20px;
+}
+
+.ul {
+  background-color: skyblue;
+  padding: 20px;
+  margin: 0;
+}
+
+li a {
+  color: white;
+  padding: 5px;
+  text-decoration: none;
+}
