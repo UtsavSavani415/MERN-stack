@@ -19,7 +19,7 @@ function SignUp(props) {
     });
 
     if (result) {
-      navigate("/");
+      navigate('/');
 
       console.log("====================================");
       console.log("result true");
