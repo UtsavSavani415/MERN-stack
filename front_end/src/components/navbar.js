@@ -1,8 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navBar.css"
 
 const NavBar = () => {
+
+  const auth = localStorage.getItem('user');
+  const navigate = useNavigate();
+
+  const logout = () => {
+    navigate('/signup');
+    localStorage.clear();
+    console.log('====================================');
+    console.log("logged out");
+    console.log('====================================');
+  }
+
   return (
     <div>
       <ul className="ul">
@@ -16,14 +28,15 @@ const NavBar = () => {
           <Link to="/update">Update Products</Link>
         </li>
         <li>
-          <Link to="/logout">Logout</Link>
-        </li>
-        <li>
           <Link to="/profile">Profile</Link>
         </li>
         <li>
-          <Link to="/signup">Signup</Link>
-        </li>
+          {
+            auth ?
+              <Link onClick={logout} to="/logout">Logout</Link>
+              :
+              <Link to="/signup">Signup</Link>
+          }</li>
       </ul>
     </div>
   );

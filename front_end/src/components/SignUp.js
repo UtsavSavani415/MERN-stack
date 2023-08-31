@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp(props) {
@@ -6,6 +6,15 @@ function SignUp(props) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+
+    const auth = localStorage.getItem('user');
+    if (auth) {
+      navigate('/')
+    }
+
+  }, []);
 
   const collectedData = async () => {
     console.log(name, email, password);
@@ -16,25 +25,21 @@ function SignUp(props) {
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    })
 
-    if (result) {
-      navigate('/');
+    navigate('/');
 
-      console.log("====================================");
-      console.log("result true");
-      console.log("====================================");
-    }
-
-    // result = await result.json();
+    result = await result.json();
     console.log("result", result);
+
+    localStorage.setItem("user", JSON.stringify(result))
   };
 
   return (
     <>
       <div className="align-content-center">
         <h1 className="m-5">Register</h1>
-        <form>
+        <form >
           <div className="m-5">
             <label htmlFor="name" className="form-label">
               Name
@@ -74,11 +79,18 @@ function SignUp(props) {
           </div>
 
           <button
-            type="submit"
+            type="button"
             className="btn btn-primary ms-5"
-            onClick={collectedData}
+            onClick={() => {
+              if (name !== "" & email !== "" & password !== "") {
+                collectedData();
+              }
+              else {
+                alert("Enter details properly");
+              }
+            }}
           >
-            Submit
+            Sign Up
           </button>
         </form>
       </div>
