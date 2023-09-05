@@ -6,8 +6,19 @@ ul li {
 
 .ul {
   background-color: skyblue;
-  padding: 20px;
+  padding: 5px;
   margin: 0;
+}
+
+.nav-right {
+  text-align: right;
+}
+
+.logo{
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 li a {
