@@ -18,7 +18,7 @@ function App() {
             <Route element={<PrivateComponent />}>
               <Route path="/" element={<ProductList />} />
               <Route path="/add" element={<AddProduct />} />
-              <Route path="/update" element={<h1>Update Products</h1>} />
+              <Route path="/update/:id" element={<h1>Update Products</h1>} />
               <Route path="/logout" element={<h1>Logged out</h1>} />
               <Route path="/profile" element={<h1>Profile</h1>} />
             </Route>
