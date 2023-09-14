@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./productList.css";
 
 function ProductList(props) {
   const [products, setProducts] = useState([]);
@@ -25,11 +26,44 @@ function ProductList(props) {
     }
     console.log("result of deletion", result);
   };
-  console.log(products);
+
+  const searchHandler = async (event) => {
+    console.log("search value", event.target.value);
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`http://localhost:5000/search/${key}`);
+
+      result = await result.json();
+
+      if (result) {
+        setProducts(result);
+      }
+    } else {
+      getProducts();
+    }
+  };
+
   return (
     <>
       <div className="m-5 d-flex flex-column align-items-center justify-content-center">
         <h3 className="d-flex justify-content-center">Product list</h3>
+
+        {/* Search bar code */}
+        <div class="container pb-4">
+          <div class="row height d-flex justify-content-center align-items-center">
+            <div class="col-md-6">
+              <div class="form">
+                <i class="fa fa-search"></i>
+                <input
+                  type="text"
+                  class="form-control form-input"
+                  onChange={searchHandler}
+                  placeholder="Search for the product..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
         {products.map((item, index) => (
           <>
