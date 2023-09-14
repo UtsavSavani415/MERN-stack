@@ -31,7 +31,7 @@ function AddProduct(props) {
   };
 
   return (
-    <div className="p-5 col-6">
+    <div className="p-5 col-6" style={{height:"90vh"}}>
       <h1>Add product</h1>
 
       <div className="row mb-3">

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -31,11 +32,11 @@ function UpdateProduct(props) {
   const updateProduct = async () => {
     console.log(name, price, category, company, params.id);
     let result = await fetch(`http://localhost:5000/product/${params.id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({ name, price, category, company }),
       headers: {
         "Content-type": "application/json",
-      }
+      },
     });
     result = await result.json();
     console.log(result);
@@ -43,7 +44,7 @@ function UpdateProduct(props) {
   };
 
   return (
-    <div className="p-5 col-6">
+    <div className="p-5 col-6" style={{height:"90vh"}}>
       <h1>Update product</h1>
 
       <div className="row mb-3">

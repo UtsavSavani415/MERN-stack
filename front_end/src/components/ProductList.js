@@ -65,42 +65,50 @@ function ProductList(props) {
           </div>
         </div>
 
-        {products.map((item, index) => (
-          <>
-            <div className="card mb-4 col-4" key={item._id}>
-              <img
-                src="https://d23qowwaqkh3fj.cloudfront.net/wp-content/uploads/2022/03/placeholder.png"
-                className="card-img-top"
-                alt="..."
-              />
-              <div className="card-body">
-                <div className="d-flex justify-content-between">
-                  <h4 className="card-title">{item.name}</h4>
-                  <h5 className="card-title text-success">{item.price} rs</h5>
+        <div class="row align-items-center ps-5">
+          {products.length > 0 ? (
+            products.map((item, index) => (
+              <>
+                <div className="card m-4 col-3" key={item._id}>
+                  <img
+                    src="https://d23qowwaqkh3fj.cloudfront.net/wp-content/uploads/2022/03/placeholder.png"
+                    className="card-img"
+                    alt="..."
+                  />
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between">
+                      <h4 className="card-title">{item.name}</h4>
+                      <h5 className="card-title text-success">
+                        {item.price} rs
+                      </h5>
+                    </div>
+                    <h5 className="card-title">Brand:- {item.company}</h5>
+                    <h5 className="card-title">Category:- {item.category}</h5>
+                  </div>
+                  <div className="d-flex justify-content-between p-2 ">
+                    <button type="button" class="btn btn-dark">
+                      <Link
+                        className="text-white noDecoration"
+                        to={"/update/" + item._id}
+                      >
+                        Update
+                      </Link>
+                    </button>
+                    <button
+                      onClick={() => deleteProduct(item._id)}
+                      type="button"
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-                <h5 className="card-title">Brand:- {item.company}</h5>
-                <h5 className="card-title">Category:- {item.category}</h5>
-              </div>
-              <div className="d-flex justify-content-between p-2 ">
-                <button type="button" class="btn btn-dark">
-                  <Link
-                    className="text-white noDecoration"
-                    to={"/update/" + item._id}
-                  >
-                    Update
-                  </Link>
-                </button>
-                <button
-                  onClick={() => deleteProduct(item._id)}
-                  type="button"
-                  className="btn btn-danger"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          </>
-        ))}
+              </>
+            ))
+          ) : (
+            <h1>No Record Found</h1>
+          )}
+        </div>
       </div>
     </>
   );
