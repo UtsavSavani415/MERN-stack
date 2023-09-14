@@ -1,35 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function AddProduct(props) {
+function UpdateProduct(props) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [company, setCompany] = useState("");
   const [error, setError] = useState(false);
 
-  const addProduct = async () => {
-    if (!name || !price || !company || !category) {
-      setError(true);
-      return false;
-    }
+  const params = useParams();
 
-    const userId = JSON.parse(localStorage.getItem("user"))._id;
+  useEffect(() => {
+    getProductDetails();
+  }, []);
 
-    const result = fetch("http://localhost:5000/add-product", {
-      method: "post",
-      body: JSON.stringify({ name, price, category, company, userId }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
-    console.log("====================================");
-    console.log(await result);
-    console.log(userId);
+  const getProductDetails = async () => {
+    console.log(params.id);
+    let result = await fetch(`http://localhost:5000/product/${params.id}`);
+    result = await result.json();
+
+    setName(result.name);
+    setPrice(result.price);
+    setCategory(result.category);
+    setCompany(result.company);
+
+    console.log("result", name);
+  };
+
+  const updateProduct = async () => {
+    console.log(name, price, category, company);
   };
 
   return (
     <div className="p-5 col-6">
-      <h1>Add product</h1>
+      <h1>Update product</h1>
 
       <div className="row mb-3">
         <label className="col-sm-2 col-form-label">Name</label>
@@ -37,6 +41,7 @@ function AddProduct(props) {
           <input
             type="name"
             className="form-control"
+            defaultValue={name}
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -52,6 +57,7 @@ function AddProduct(props) {
           <input
             type="number"
             className="form-control"
+            defaultValue={price}
             onChange={(e) => {
               setPrice(e.target.value);
             }}
@@ -67,6 +73,7 @@ function AddProduct(props) {
           <input
             type="name"
             className="form-control"
+            defaultValue={category}
             onChange={(e) => {
               setCategory(e.target.value);
             }}
@@ -82,6 +89,7 @@ function AddProduct(props) {
           <input
             type="name"
             className="form-control"
+            defaultValue={company}
             onChange={(e) => {
               setCompany(e.target.value);
             }}
@@ -92,11 +100,11 @@ function AddProduct(props) {
         </div>
       </div>
 
-      <button type="submit" className="btn btn-primary" onClick={addProduct}>
-        Add Product
+      <button type="submit" className="btn btn-primary" onClick={updateProduct}>
+        Update Product
       </button>
     </div>
   );
 }
 
-export default AddProduct;
+export default UpdateProduct;
