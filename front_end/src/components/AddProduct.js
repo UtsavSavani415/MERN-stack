@@ -23,6 +23,7 @@ function AddProduct(props) {
       body: JSON.stringify({ name, price, category, company, userId }),
       headers: {
         "Content-type": "application/json",
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
     console.log("====================================");
@@ -31,7 +32,7 @@ function AddProduct(props) {
   };
 
   return (
-    <div className="p-5 col-6" style={{height:"90vh"}}>
+    <div className="p-5 col-6" style={{ height: "90vh" }}>
       <h1>Add product</h1>
 
       <div className="row mb-3">

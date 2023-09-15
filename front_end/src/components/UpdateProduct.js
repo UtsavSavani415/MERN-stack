@@ -18,7 +18,11 @@ function UpdateProduct(props) {
 
   const getProductDetails = async () => {
     console.log(params.id);
-    let result = await fetch(`http://localhost:5000/product/${params.id}`);
+    let result = await fetch(`http://localhost:5000/product/${params.id}`, {
+      headers: {
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    });
     result = await result.json();
 
     setName(result.name);
@@ -44,7 +48,7 @@ function UpdateProduct(props) {
   };
 
   return (
-    <div className="p-5 col-6" style={{height:"90vh"}}>
+    <div className="p-5 col-6" style={{ height: "90vh" }}>
       <h1>Update product</h1>
 
       <div className="row mb-3">
